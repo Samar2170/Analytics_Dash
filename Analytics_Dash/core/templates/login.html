@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load socialaccount %}
+
+
+
+<body class="font-mono bg-secondary">
+    <div class="container mx-auto">
+        <div class="flex justify-center px-6 my-12">
+            
+            <form action="{% url 'login' %}" method="POST" class="px-8 pt-6 pb-8 mb-4 bg-gray-100 rounded">
+                <h3 class="pt-4 text-2xl text-center">Login</h3><br>
+                {% csrf_token %}
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" >
+                        username
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="username" name="username">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" name="password">
+                    
+                </div>
+                <div class="mb-6 text-center">
+                    <button
+                        class="w-auto px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        type="submit"
+                    >
+                        Submit
+                    </button>
+                </div>
+                <hr class="mb-6 border-t" />
+            </form>
+
+        </div>
+    </div>
+</body>
+
+
+
+<a href="{% provider_login_url 'google' %}">Login Using google </a>
+{% endblock %}

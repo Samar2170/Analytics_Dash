@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  web:
+    build: ./Analytics_Dash
+    command: gunicorn analytics_dash.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static:/app/static 
+    expose:
+      - 8000
+    env_file:
+      - ./.env
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    volumes:
+      - static:/app/static
+
+volumes:
+  static:

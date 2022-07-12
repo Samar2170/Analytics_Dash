@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load socialaccount %}
+<h1>Welcome </h1>
+{% if user.is_authenticated %}
+  <p>Welcome, You are logged in as {{ user.username }}</p>
+
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Make Manager</th>
+    </tr>
+    {% for u in users %} 
+    
+    <tr>
+      <td>
+        {{ u.username }}
+
+      </td>
+      <td>
+        {{ u.email }}
+
+      </td>
+      <td>
+        {{ u.userrole.role }}
+      </td>
+      {% if u.userrole.role != 'manager' %}
+      <td>
+        <form action="{% url 'admin-page'  %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="user_id" value="{{ u.id }}">
+            <button> Make Manager</button>
+        </form>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+
+
+{% else %}
+    <p>You are not logged in.</p>
+    <a href="/login">Please Login</a>
+{% endif %}
+{% endblock %}
